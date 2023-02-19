@@ -39,7 +39,7 @@ window.addEventListener("load", () => {
                 inputs[0].style.borderBottomColor = "rgb(64,146,181)";
             } else
                 if (inputs[0].value == "" || !inputs[0].value.match(regExp[0])) {
-                    cName.innerText = "";
+                    cName.innerText = "Invalid input";
                     inputs[0].style.borderBottomColor = "red";
                 }
         }
@@ -48,7 +48,7 @@ window.addEventListener("load", () => {
         if (i == 1) {
             if (inputs[1].value == "") {
                 inputs[1].style.borderBottomColor = "red";
-                cList.innerText = " ";
+                cList.innerText = "Invalid input";
             } else {
                 let cNumber = inputs[1].value;
                 cNumber = cNumber.replace(/\s/g, "");
@@ -92,7 +92,6 @@ window.addEventListener("load", () => {
                         cYear.innerText = dateValue + "/";
                     } else {
                         inputs[2].style.borderBottomColor = "red";
-
                     }
                 } //End of Month
                 else if (d.length == 4) {
@@ -108,7 +107,7 @@ window.addEventListener("load", () => {
                 } //End of date + full date
             } //END of IF for [i = 2]
             else {
-                cYear.innerText = "";
+                cYear.innerText = "N/A";
                 inputs[2].style.borderBottomColor = "red";
             }
         }
