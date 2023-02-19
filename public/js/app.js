@@ -18,8 +18,12 @@ window.addEventListener("load", () => {
     let cList = document.querySelector(".box ul li");
     let cYear = document.querySelector(".box .year");
     let length = inputs.length;
+/* A regular expression that is used to validate the input of the user. */
     let regExp = [/^[A-Za-z\'\s\.\,]+$/, /^4[0-9]{12}(?:[0-9]{3})?$/, /^[0-9]{3,4}$/];
     //focusing the text->function
+/**
+ * It changes the color of the input field that is currently being typed in
+ */
     let fieldColor = i => {
         for (j = 0; j < inputCon.length; j++) {
             if (window.CP.shouldStopExecution(0)) break;
@@ -32,6 +36,7 @@ window.addEventListener("load", () => {
     };
     let checkInput = i => {
         // Name
+        /* Checking the input of the user and making sure that it is valid. */
         if (i == 0) {
             if (inputs[0].value.match(regExp[0])) {
                 cName.innerText = inputs[0].value;
@@ -52,6 +57,8 @@ window.addEventListener("load", () => {
             } else {
                 let cNumber = inputs[1].value;
                 cNumber = cNumber.replace(/\s/g, "");
+                /* Checking if the input is a number and if it is, it is formatting it to be displayed
+                in the credit card. */
                 if (Number(cNumber)) {
                     cNumber = cNumber.match(/.{1,4}/g);
                     cNumber = cNumber.join(" ");
@@ -85,9 +92,11 @@ window.addEventListener("load", () => {
                 let date = new Date();
                 let twoDigitYear = parseInt(date.getFullYear().toString().substr(2), 10);
                 //the first two digit in the month field
+                /* Checking if the input is a valid date. */
                 if (d.length == 2) {
                     //checking for first
                     if (d[0] == 0 && (d[1] !== 0 || d[1] <= 9) || d[0] == 1 && d[1] <= 2) {
+                        /* Changing the color of the border of the input field. */
                         inputs[2].style.borderBottomColor = "rgb(64,146,181)";
                         cYear.innerText = dateValue + "/";
                     } else {
@@ -95,7 +104,9 @@ window.addEventListener("load", () => {
                     }
                 } //End of Month
                 else if (d.length == 4) {
+                    /* Converting the year that the user has input into a number. */
                     let twoDigitYearN = parseInt(d[2].toString().concat(d[3].toString()), 10);
+                    /* Checking if the year that the user has input is greater than the current year. */
                     if (twoDigitYearN > twoDigitYear) {
                         let stringDigit = twoDigitYearN.toString();
                         cYear.innerText += stringDigit;
@@ -114,6 +125,8 @@ window.addEventListener("load", () => {
 
         if (i == 3) {
             let cV = inputs[i].value;
+            /* Checking if the input is a number and if it is, it is formatting it to be displayed
+            in the credit card. */
             if (Number(cV) && cV.match(regExp[2])) {
                 inputs[i].style.borderBottomColor = "rgb(64,146,181)";
             } else {
@@ -125,11 +138,13 @@ window.addEventListener("load", () => {
     cName.innerText = inputs[0].getAttribute('placeholder');
     cList.innerText = inputs[1].getAttribute('placeholder');
     cYear.innerText = inputs[2].getAttribute('placeholder'); //Adding Event Listeners
+    /* Adding an event listener to each input field. */
     for (i = 0; i < inputCon.length; i++) {
         if (window.CP.shouldStopExecution(1)) break;
         inputs[i].addEventListener('click', fieldColor.bind(this, i));
         inputs[i].addEventListener('input', checkInput.bind(this, i));
     } window.CP.exitedLoop(1);
+    /* Preventing the default action of the button. */
     btn.addEventListener('click', e => {
         e.preventDefault();
         for (i = 0; i < length; i++) {
